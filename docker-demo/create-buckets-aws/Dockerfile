@@ -1,4 +1,4 @@
-FROM song_base-ubuntu:latest
+FROM overture/local-base-ubuntu:latest
 
 ENV DCC_SCRIPTS $DCC_HOME/scripts
 RUN  pip3 install boto3

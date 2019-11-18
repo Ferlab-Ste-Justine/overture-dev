@@ -1,4 +1,4 @@
-FROM song_base-db:latest
+FROM overture/local-base-db:latest
 MAINTAINER OVERTURE <contact@overture.bio>
 
 ENV ID_RELEASE_VERSION 5.1.4

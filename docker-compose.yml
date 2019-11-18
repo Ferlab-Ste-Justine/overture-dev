@@ -1,10 +1,12 @@
 version: '3.4'
 services:
   base-ubuntu:
+    image: overture/local-base-ubuntu:latest
     build: ./docker-demo/base-ubuntu
     networks:
         - overture
   base-db:
+    image: overture/local-base-db:latest
     build: ./docker-demo/base-db
     command: echo "do nothing"
     networks:

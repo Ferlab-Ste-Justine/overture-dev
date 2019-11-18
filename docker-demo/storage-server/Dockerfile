@@ -1,4 +1,4 @@
-FROM song_base-ubuntu:latest
+FROM overture/local-base-ubuntu:latest
 MAINTAINER OVERTURE <contact@overture.bio>
 
 #
