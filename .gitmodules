@@ -1,0 +1,3 @@
+[submodule "SONG"]
+	path = SONG
+	url = https://github.com/cr-ste-justine/SONG.git
