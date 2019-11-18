@@ -67,20 +67,16 @@ services:
       context: ./SONG
       dockerfile: Dockerfile
       target: server
-    network_mode: host
     environment:
       SPRING_PROFILES_ACTIVE: "default,local"
       SPRING_DATASOURCE_USERNAME: "postgres"
       SPRING_DATASOURCE_PASSWORD: "password"
       SPRING_DATASOURCE_URL: "jdbc:postgresql://song-db:8082/song?stringtype=unspecified"
-      ID_IDURL: "http://id:9090"
-      SCORE_URL: "http://storage-server:8087"
-      AUTH_SERVER_URL: "http://auth:8084/check_token/"
     env_file:
-      - local_server.env
+      - song_server.env
     restart: always
     depends_on:
-      - db 
+      - song-db 
       - id
       - auth
     volumes:
@@ -95,9 +91,9 @@ services:
       - ./SONG:/opt
     working_dir: /opt
     env_file:
-      - local_server.env
+      - song_server.env
     depends_on:
-      - db 
+      - song-db 
       - id
       - auth
     stdin_open: true
@@ -118,7 +114,7 @@ services:
       CLIENT_DEBUG_ENABLED: "false"
     depends_on:
       - base-ubuntu
-      - server
+      - song
     volumes:
       - "./docker-demo/data/client:/opt/dcc/data"
       - "./docker-demo/tools:/opt/dcc/tools"
@@ -163,7 +159,7 @@ services:
     depends_on:
       - base-ubuntu
       - object-storage
-      - server
+      - song
       - auth
     volumes:
       - "./docker-demo/logs/storage_server_logs:/opt/dcc/storage_server_logs"
@@ -179,7 +175,7 @@ services:
       STORAGE_SERVER_URL: http://storage-server:8087
     depends_on:
       - storage-server
-      - server
+      - song
     volumes:
       - "./docker-demo/data/storage-client:/opt/dcc/data"
       - "./docker-demo/tools:/opt/dcc/tools"
