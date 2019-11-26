@@ -4,13 +4,13 @@ services:
     image: overture/local-base-ubuntu:latest
     build: ./docker-demo/base-ubuntu
     networks:
-        - overture
+      - overture
   base-db:
     image: overture/local-base-db:latest
     build: ./docker-demo/base-db
     command: echo "do nothing"
     networks:
-        - overture
+      - overture
   song-db:
     image: "postgres:9.6"
     environment:
@@ -19,7 +19,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     networks:
-        - overture
+      - overture
   id-db:
     build: ./docker-demo/id-db
     environment:
@@ -32,7 +32,7 @@ services:
     volumes:
       - "id-db-data:/var/lib/postgresql/data/pgdata"
     networks:
-        - overture
+      - overture
   auth:
     build: ./docker-demo/auth
     environment:
@@ -40,7 +40,7 @@ services:
     volumes:
       - "auth-data:/opt/dcc/auth_data"
     networks:
-        - overture
+      - overture
   id:
     build: ./docker-demo/id
     environment:
@@ -63,12 +63,14 @@ services:
       - "./docker-demo/logs/id_logs:/opt/dcc/id_logs"
       - "./docker-demo/tools:/opt/dcc/tools"
     networks:
-        - overture
+      - overture
   song:
     build:
       context: ./SONG
       dockerfile: Dockerfile
       target: server
+    ports:
+      - "8080:8080"
     environment:
       SPRING_PROFILES_ACTIVE: "default,local"
       SPRING_DATASOURCE_USERNAME: "postgres"
@@ -85,7 +87,7 @@ services:
       - "./docker-demo/logs/server_logs:/opt/dcc/server_logs"
       - "./docker-demo/tools:/opt/dcc/tools"
     networks:
-        - overture
+      - overture
   song-maven:
     image: maven:3.5-jdk-11-slim
     volumes:
@@ -103,7 +105,7 @@ services:
     command: ["bash"]
     entrypoint: [""]
     networks:
-        - overture
+      - overture
   song-client:
     build:
       context: ./SONG
@@ -125,7 +127,7 @@ services:
     command: ["bash"]
     entrypoint: [""]
     networks:
-        - overture
+      - overture
   object-storage:
     image: minio/minio:RELEASE.2018-05-11T00-29-24Z
     volumes:
@@ -141,7 +143,7 @@ services:
             window: 60s
     command: server --address=0.0.0.0:8085 /opt/dcc/data
     networks:
-        - overture
+      - overture
   storage-server:
     build: ./docker-demo/storage-server
     environment:
@@ -168,7 +170,7 @@ services:
       - "./docker-demo/tools:/opt/dcc/tools"
       - "./docker-demo/data:/opt/dcc/data"
     networks:
-        - overture
+      - overture
   storage-client:
     build: ./docker-demo/storage-client
     environment:
@@ -182,7 +184,7 @@ services:
       - "./docker-demo/data/storage-client:/opt/dcc/data"
       - "./docker-demo/tools:/opt/dcc/tools"
     networks:
-        - overture
+      - overture
 
 volumes:
   db-data: {}

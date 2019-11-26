@@ -1,3 +1,9 @@
 [submodule "SONG"]
 	path = SONG
 	url = https://github.com/cr-ste-justine/SONG.git
+[submodule "clin-proxy-api"]
+	path = clin-proxy-api
+	url = https://github.com/cr-ste-justine/clin-proxy-api.git
+[submodule "devops"]
+	path = devops
+	url = https://github.com/cr-ste-justine/devops.git
