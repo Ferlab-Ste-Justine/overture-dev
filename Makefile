@@ -5,7 +5,6 @@ SONG_STUDY_ID="ABC123"
 default_study:
 	@curl \
 	-vvv \
-	-H "Authorization: Bearer $(SONG_ACCESS_TOKEN)" \
 	-H "Content-Type: application/json" \
 	-H "accept: */*" \
 	-X POST \

@@ -76,6 +76,7 @@ services:
       SPRING_DATASOURCE_USERNAME: "postgres"
       SPRING_DATASOURCE_PASSWORD: "password"
       SPRING_DATASOURCE_URL: "jdbc:postgresql://song-db:8082/song?stringtype=unspecified"
+      SONG_SECURITY_ENABLED: "false"
     env_file:
       - song_server.env
     restart: always
