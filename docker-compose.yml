@@ -88,7 +88,9 @@ services:
       - "./docker-demo/logs/server_logs:/opt/dcc/server_logs"
       - "./docker-demo/tools:/opt/dcc/tools"
     networks:
-      - overture
+      overture:
+        aliases:
+          - song
   song-maven:
     image: maven:3.5-jdk-11-slim
     volumes:
@@ -194,3 +196,5 @@ volumes:
 
 networks:
   overture:
+  proxy:
+    external: true
