@@ -51,7 +51,7 @@ services:
       SERVICE_PORT: $SERVICE_PORT
       ADMIN_ROLE: $ADMIN_ROLE
     volumes:
-      - ./src:/opt/app
+      - ./overture-auth/src:/opt/app
     networks:
       - overture
 
