@@ -1,0 +1,59 @@
+
+version: '3.3'
+
+services:
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: "keycloak"
+      POSTGRES_PASSWORD: ${POSTGRESQL_PASSWORD}
+      POSTGRES_DB: "keycloak"
+    volumes:
+      - ./overture-auth/postgres:/var/lib/postgresql/data
+    expose:
+      - "5432"
+    networks:
+      - overture
+
+  keycloak:
+    image: jboss/keycloak:4.8.3.Final
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - 8443:8443
+    volumes:
+      - ./overture-auth/realm-export.json:/tmp/realm-export.json
+    environment:
+      KEYCLOAK_USER: "admin"
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+      DB_VENDOR: "postgres"
+      DB_PASSWORD: ${POSTGRESQL_PASSWORD}
+      JDBC_PARAMS: "connectTimeout=30"
+      DB_ADDR: "postgres"
+      KEYCLOAK_IMPORT: /tmp/realm-export.json
+    networks:
+      - overture
+
+  reverse-proxy:
+    build:
+      context: ./overture-auth/src
+      dockerfile: Dockerfile-dev
+    ports:
+      - $SERVICE_PORT:$SERVICE_PORT
+    restart: always
+    environment:
+      JWT_SECRET: $JWT_SECRET
+      SONG_SERVICE: $SONG_SERVICE
+      SCORE_SERVICE: "placeholder"
+      SERVICE_PORT: $SERVICE_PORT
+      ADMIN_ROLE: $ADMIN_ROLE
+    volumes:
+      - ./src:/opt/app
+    networks:
+      - overture
+
+networks:
+  overture:
