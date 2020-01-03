@@ -10,3 +10,6 @@
 [submodule "overture-auth"]
 	path = overture-auth
 	url = https://github.com/cr-ste-justine/overture-auth.git
+[submodule "overture-clients"]
+	path = overture-clients
+	url = https://github.com/Magnitus-/overture-clients
