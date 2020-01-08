@@ -148,32 +148,56 @@ services:
     networks:
       - overture
   storage-server:
-    build: ./docker-demo/storage-server
+    build:
+      context: ./score
+      dockerfile: Dockerfile
+      target: server
     environment:
-      OBJECT_STORAGE_URL: http://object-storage:8085
-      OBJECT_STORAGE_ACCESS_KEY: minio
-      OBJECT_STORAGE_SECRET_KEY: minio123
+      METADATA_USELEGACYMODE: "false"
+      SCORE_SECURITY_ENABLED: "false"
+      SERVER_PORT: 8080
+      SERVER_URL: http://song:8080
+      METADATA_URL: http://song:8080
+      SERVER_SSL_ENABLED: "false"
       AUTH_SERVER_URL: http://auth:8084/check_token/
       AUTH_SERVER_CLIENTID:  3kJhz9pNtC0pFHAxr2SPkUkGjXrkWWqGcnPC0vBP
       AUTH_SERVER_CLIENTSECRET: v9mjRtuEVwpt7cgqnsq6mxtCa5FbUOpKLGh7WX8a1dWbBKfrM3iV3VYMtE60jr3W7GLWtNeYIaJ8EUxPkaInclWVXf64qKdR3IKwyfpDU7JhvWEwIYQYdwV1YAUZjB2e
-      SERVER_URL: http://song:8080
+      AUTH_SERVER_UPLOADSCOPE: score.WRITE
+      AUTH_SERVER_DOWNLOADSCOPE: score.READ
+      OBJECT_STORAGE_URL: http://object-storage:8085
+      S3_ENDPOINT: http://object-storage:8085
+      OBJECT_STORAGE_ACCESS_KEY: minio
+      S3_ACCESSKEY: minio
+      OBJECT_STORAGE_SECRET_KEY: minio123
+      S3_SECRETKEY: minio123
+      S3_SIGV4ENABLED: "true"
       STORAGE_SERVER_PORT: 8087
       STORAGE_SERVER_JMX_PORT: 10018
       STORAGE_SERVER_DATA_BUCKET: oicr.icgc.test
       STORAGE_SERVER_STATE_BUCKET: oicr.icgc.test
+      BUCKET_NAME_OBJECT: oicr.icgc.test
+      BUCKET_NAME_STATE: oicr.icgc.test
       STORAGE_SERVER_DATA_DIR: data
+      COLLABORATORY_DATA_DIRECTORY: data
       STORAGE_SERVER_OBJECT_SENTINEL: heliograph
+      OBJECT_SENTINEL: heliograph
+      UPLOAD_PARTSIZE: 1073741824
+      UPLOAD_CONNECTION_TIMEOUT: 1200000
+      LOGGING_LEVEL_BIO_OVERTURE_SCORE_SERVER: DEBUG
+      LOGGING_LEVEL_ORG_APACHE_HTTP_WIRE: DEBUG
+      LOGGING_LEVEL_ORG_APACHE_HTTP_HEADERS: DEBUG
+      ENDPOINTS_DUMP_ENABLED: "false"
+      ENDPOINTS_ENV_ENABLED: "true"
+      ENDPOINTS_INFO_ENABLED: "true"
+    ports:
+      - "8087:8080"
+      - "5006:5006"
     depends_on:
-      - base-ubuntu
       - object-storage
       - song
       - auth
     volumes:
-      - "./docker-demo/logs/storage_server_logs:/opt/dcc/storage_server_logs"
-      - "./docker-demo/tools:/opt/dcc/tools"
-      - "./docker-demo/data:/opt/dcc/data"
-    networks:
-      - overture
+      - "./docker/scratch/storage-server-logs:/opt/dcc/storage_server_logs"
   storage-client:
     build: ./docker-demo/storage-client
     environment:

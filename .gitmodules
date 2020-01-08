@@ -7,3 +7,6 @@
 [submodule "overture-clients"]
 	path = overture-clients
 	url = https://github.com/Magnitus-/overture-clients
+[submodule "score"]
+	path = score
+	url = https://github.com/cr-ste-justine/score.git
