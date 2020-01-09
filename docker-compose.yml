@@ -198,18 +198,26 @@ services:
       - auth
     volumes:
       - "./docker/scratch/storage-server-logs:/opt/dcc/storage_server_logs"
+    networks:
+      - overture
   storage-client:
-    build: ./docker-demo/storage-client
+    stdin_open: true
+    tty: true
+    entrypoint: [""]
+    command: ["sh"]
+    build:
+      context: ./score
+      dockerfile: Dockerfile
+      target: client
     environment:
       AUTH_TOKEN: ad83ebde-a55c-11e7-abc4-cec278b6b50a
-      SERVER_URL: http://song:8080
-      STORAGE_SERVER_URL: http://storage-server:8087
+      METADATA_URL: http://song:8080
+      STORAGE_URL: http://storage-server:8080
     depends_on:
       - storage-server
       - song
     volumes:
-      - "./docker-demo/data/storage-client:/opt/dcc/data"
-      - "./docker-demo/tools:/opt/dcc/tools"
+      - "overture_manifests:/opt/overture-manifests"
     networks:
       - overture
 
@@ -217,6 +225,8 @@ volumes:
   db-data: {}
   id-db-data: {}
   auth-data: {}
+  overture_manifests:
+    external: true
 
 networks:
   overture:
