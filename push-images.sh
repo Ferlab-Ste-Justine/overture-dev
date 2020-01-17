@@ -1,4 +1,4 @@
-export VERSION=0.1
+export VERSION=0.2
 
 docker-compose build --no-cache;
 
