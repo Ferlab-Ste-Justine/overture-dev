@@ -41,6 +41,8 @@ services:
       - "auth-data:/opt/dcc/auth_data"
     networks:
       - overture
+    ports:
+      - "8084:8084"
   id:
     build: ./docker-demo/id
     environment:
@@ -72,7 +74,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_PROFILES_ACTIVE: "default,local"
+      SPRING_PROFILES_ACTIVE: "prod,secure,default"
       SPRING_DATASOURCE_USERNAME: "postgres"
       SPRING_DATASOURCE_PASSWORD: "password"
       SPRING_DATASOURCE_URL: "jdbc:postgresql://song-db:8082/song?stringtype=unspecified"
@@ -153,6 +155,7 @@ services:
       dockerfile: Dockerfile
       target: server
     environment:
+      SPRING_PROFILES_ACTIVE: "amazon,collaboratory,prod,secure"
       METADATA_USELEGACYMODE: "false"
       SCORE_SECURITY_ENABLED: "false"
       SERVER_PORT: 8080
@@ -210,7 +213,7 @@ services:
       dockerfile: Dockerfile
       target: client
     environment:
-      AUTH_TOKEN: ad83ebde-a55c-11e7-abc4-cec278b6b50a
+      ACCESSTOKEN: ad83ebde-a55c-11e7-abc4-cec278b6b50a
       METADATA_URL: http://song:8080
       STORAGE_URL: http://storage-server:8080
     depends_on:
