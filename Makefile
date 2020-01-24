@@ -1,5 +1,4 @@
 SONG_SERVER_URL="http://localhost:8888"
-SONG_ACCESS_TOKEN="ad83ebde-a55c-11e7-abc4-cec278b6b50a"
 SONG_STUDY_ID="ABC123"
 
 KEYCLOAK_URL="https://localhost:8443"
@@ -38,4 +37,4 @@ default_analysis:
 	-H "accept: */*" \
 	-X POST \
 	-d "@test_analysis" \
-	"$(SONG_SERVER_URL)/upload/$(SONG_STUDY_ID)"
+	"$(SONG_SERVER_URL)/submit/$(SONG_STUDY_ID)"
