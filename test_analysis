@@ -1,1 +1,66 @@
-{"study": "ABC123", "analysisState": "UNPUBLISHED", "sample": [{"info": {"randomSample1Field": "someSample1Value"}, "sampleId": null, "specimenId": null, "sampleSubmitterId": "ssId1", "sampleType": "RNA", "specimen": {"info": {"randomSpecimenField": "someSpecimenValue"}, "specimenId": null, "donorId": null, "specimenSubmitterId": "sp_sub_1", "specimenClass": "Tumour", "specimenType": "Normal - EBV immortalized"}, "donor": {"info": {"randomDonorField": "someDonorValue"}, "donorId": null, "donorSubmitterId": "dsId1", "studyId": "ABC123", "donorGender": "male"}}], "file": [{"info": {"randomFile1Field": "someFile1Value"}, "objectId": null, "analysisId": null, "fileName": "example.bam", "studyId": "ABC123", "fileSize": 1234561, "fileType": "BAM", "fileMd5sum": "73a90acaae2b1ccc0e969709665bc62f", "fileAccess": "controlled"}, {"info": {"randomFile2Field": "someFile2Value"}, "objectId": null, "analysisId": null, "fileName": "example.bam.bai", "studyId": "ABC123", "fileSize": 1234562, "fileType": "BAI", "fileMd5sum": "67a97437c474cc1d95e0a1672b291b70", "fileAccess": "controlled"}], "analysisType": {"name": "sequencingRead", "version": 1}, "experiment": {"info": {"randomSRField": "someSRValue"}, "analysisId": null, "aligned": true, "alignmentTool": "myAlignmentTool", "insertSize": 0, "libraryStrategy": "WXS", "pairedEnd": true, "referenceGenome": "GR37"}}
+{
+    "studyId": "ABC123", 
+    "samples": [
+        {
+            "info": {"randomSample1Field": "someSample1Value"}, 
+            "sampleId": null, 
+            "specimenId": null, 
+            "submitterSampleId": "ssId1", 
+            "matchedNormalSubmitterSampleId": "sample-x24-11a", 
+            "sampleType": "Total RNA", 
+            "specimen": {
+                "info": {"randomSpecimenField": "someSpecimenValue"}, 
+                "specimenId": null, 
+                "donorId": null, 
+                "submitterSpecimenId": "sp_sub_1", 
+                "specimenType": "Primary tumour",
+                "specimenTissueSource": "Solid tissue",
+                "tumourNormalDesignation": "Tumour"
+            }, 
+            "donor": {
+                "info": {"randomDonorField": "someDonorValue"}, 
+                "donorId": null, 
+                "submitterDonorId": "dsId1", 
+                "studyId": "ABC123", 
+                "gender": "Male"
+            }
+        }
+    ], 
+    "files": [
+        {
+            "info": {"randomFile1Field": "someFile1Value"}, 
+            "objectId": null, 
+            "analysisId": null, 
+            "fileName": "example.bam", 
+            "studyId": "ABC123", 
+            "fileSize": 1234561, 
+            "fileType": "BAM", 
+            "fileMd5sum": "73a90acaae2b1ccc0e969709665bc62f", 
+            "fileAccess": "controlled",
+            "dataType": "whatever"
+        }, 
+        {
+            "info": {"randomFile2Field": "someFile2Value"}, 
+            "objectId": null, 
+            "analysisId": null, 
+            "fileName": "example.bam.bai", 
+            "studyId": "ABC123", 
+            "fileSize": 1234562, 
+            "fileType": "BAI", 
+            "fileMd5sum": "67a97437c474cc1d95e0a1672b291b70", 
+            "fileAccess": "controlled",
+            "dataType": "whatever"
+        }
+    ], 
+    "analysisType": {"name": "sequencingRead", "version": 1}, 
+    "experiment": {
+        "info": {"randomSRField": "someSRValue"}, 
+        "analysisId": null, 
+        "aligned": true, 
+        "alignmentTool": "myAlignmentTool", 
+        "insertSize": 0, 
+        "libraryStrategy": "WXS", 
+        "pairedEnd": true, 
+        "referenceGenome": "GR37"
+    }
+}
