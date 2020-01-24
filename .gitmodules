@@ -1,9 +1,9 @@
 [submodule "SONG"]
 	path = SONG
 	url = https://github.com/cr-ste-justine/SONG.git
-[submodule "overture-auth"]
-	path = overture-auth
-	url = https://github.com/cr-ste-justine/overture-auth.git
+[submodule "song-auth"]
+	path = song-auth
+	url = https://github.com/cr-ste-justine/song-auth.git
 [submodule "overture-clients"]
 	path = overture-clients
 	url = https://github.com/Magnitus-/overture-clients
