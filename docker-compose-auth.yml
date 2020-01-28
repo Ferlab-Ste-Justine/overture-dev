@@ -42,16 +42,32 @@ services:
       context: ./song-auth/src
       dockerfile: Dockerfile-dev
     ports:
-      - $SERVICE_PORT:$SERVICE_PORT
+      - 8888:$PROXY_SERVICE_PORT
     restart: always
     environment:
       JWT_SECRET: $JWT_SECRET
       SONG_SERVICE: $SONG_SERVICE
-      SCORE_SERVICE: "placeholder"
-      SERVICE_PORT: $SERVICE_PORT
+      SERVICE_PORT: $PROXY_SERVICE_PORT
       ADMIN_ROLE: $ADMIN_ROLE
     volumes:
       - ./song-auth/src:/opt/app
+    networks:
+      - overture
+
+  score-reverse-proxy:
+    build:
+      context: ./score-auth/src
+      dockerfile: Dockerfile-dev
+    ports:
+      - 8989:$PROXY_SERVICE_PORT
+    restart: always
+    environment:
+      JWT_SECRET: $JWT_SECRET
+      SCORE_SERVICE: $SCORE_SERVICE
+      SERVICE_PORT: $PROXY_SERVICE_PORT
+      ADMIN_ROLE: $ADMIN_ROLE
+    volumes:
+      - ./score-auth/src:/opt/app
     networks:
       - overture
 

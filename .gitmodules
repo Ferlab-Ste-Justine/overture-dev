@@ -10,3 +10,6 @@
 [submodule "song-auth"]
 	path = song-auth
 	url = git@github.com:cr-ste-justine/song-auth.git
+[submodule "score-auth"]
+	path = score-auth
+	url = https://github.com/cr-ste-justine/score-auth.git
