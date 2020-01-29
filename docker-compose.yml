@@ -77,6 +77,8 @@ services:
       SPRING_DATASOURCE_PASSWORD: "password"
       SPRING_DATASOURCE_URL: "jdbc:postgresql://song-db:8082/song?stringtype=unspecified"
       SONG_SECURITY_ENABLED: "false"
+      SCORE_URL: http://storage-server:8080
+      SCORE_ACCESSTOKEN: ad83ebde-a55c-11e7-abc4-cec278b6b50a
     env_file:
       - song_server.env
     restart: always
@@ -97,6 +99,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./SONG:/opt
     working_dir: /opt
+    environment:
+      SCORE_URL: $SCORE_PROXY
+      SCORE_ACCESSTOKEN: ad83ebde-a55c-11e7-abc4-cec278b6b50a
     env_file:
       - song_server.env
     depends_on:
@@ -214,7 +219,7 @@ services:
     environment:
       AUTH_TOKEN: ad83ebde-a55c-11e7-abc4-cec278b6b50a
       METADATA_URL: $SONG_SERVICE
-      STORAGE_URL: $SCORE_SERVICE
+      STORAGE_URL: $SCORE_PROXY
     depends_on:
       - storage-server
       - song
