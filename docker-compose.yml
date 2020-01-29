@@ -133,11 +133,13 @@ services:
       - overture
   object-storage:
     image: minio/minio:RELEASE.2018-05-11T00-29-24Z
+    ports:
+      - "8085:8085"
     volumes:
       - "./docker-demo/data/minio:/opt/dcc/data"
     environment:
-      MINIO_ACCESS_KEY: minio
-      MINIO_SECRET_KEY: minio123
+      MINIO_ACCESS_KEY: $OBJECT_STORAGE_ACCESS_KEY
+      MINIO_SECRET_KEY: $OBJECT_STORAGE_SECRET_KEY
       MINIO_PORT: 8085
     deploy:
         restart_policy:
@@ -156,8 +158,8 @@ services:
       METADATA_USELEGACYMODE: "false"
       SCORE_SECURITY_ENABLED: "false"
       SERVER_PORT: 8080
-      SERVER_URL: http://song:8080
-      METADATA_URL: http://song:8080
+      SERVER_URL: $SONG_SERVICE
+      METADATA_URL: $SONG_SERVICE
       SERVER_SSL_ENABLED: "false"
       AUTH_SERVER_URL: http://auth:8084/check_token/
       AUTH_SERVER_CLIENTID:  3kJhz9pNtC0pFHAxr2SPkUkGjXrkWWqGcnPC0vBP
@@ -166,12 +168,12 @@ services:
       AUTH_SERVER_DOWNLOADSCOPE: score.READ
       OBJECT_STORAGE_URL: http://object-storage:8085
       S3_ENDPOINT: http://object-storage:8085
-      OBJECT_STORAGE_ACCESS_KEY: minio
-      S3_ACCESSKEY: minio
-      OBJECT_STORAGE_SECRET_KEY: minio123
-      S3_SECRETKEY: minio123
+      OBJECT_STORAGE_ACCESS_KEY: $OBJECT_STORAGE_ACCESS_KEY
+      S3_ACCESSKEY: $OBJECT_STORAGE_ACCESS_KEY
+      OBJECT_STORAGE_SECRET_KEY: $OBJECT_STORAGE_SECRET_KEY
+      S3_SECRETKEY: $OBJECT_STORAGE_SECRET_KEY
       S3_SIGV4ENABLED: "true"
-      STORAGE_SERVER_PORT: 8087
+      STORAGE_SERVER_PORT: 8080
       STORAGE_SERVER_JMX_PORT: 10018
       STORAGE_SERVER_DATA_BUCKET: oicr.icgc.test
       STORAGE_SERVER_STATE_BUCKET: oicr.icgc.test
@@ -211,8 +213,8 @@ services:
       target: client
     environment:
       AUTH_TOKEN: ad83ebde-a55c-11e7-abc4-cec278b6b50a
-      METADATA_URL: http://song:8080
-      STORAGE_URL: http://storage-server:8080
+      METADATA_URL: $SONG_SERVICE
+      STORAGE_URL: $SCORE_SERVICE
     depends_on:
       - storage-server
       - song
