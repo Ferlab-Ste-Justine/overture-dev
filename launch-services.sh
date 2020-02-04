@@ -6,6 +6,7 @@ fi
 
 docker-compose up -d
 docker-compose -f docker-compose-auth.yml up -d
+docker-compose -f docker-compose-id.yml up -d
 
 #Setup the Minio bucket that Score depends on
 export OBJECT_STORAGE_ACCESS_KEY=$(cat .env | grep OBJECT_STORAGE_ACCESS_KEY | cut -d '=' -f 2)

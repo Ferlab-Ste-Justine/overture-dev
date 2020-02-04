@@ -13,3 +13,6 @@
 [submodule "score-auth"]
 	path = score-auth
 	url = https://github.com/cr-ste-justine/score-auth.git
+[submodule "overture-id-service"]
+	path = overture-id-service
+	url = https://github.com/cr-ste-justine/overture-id-service.git
