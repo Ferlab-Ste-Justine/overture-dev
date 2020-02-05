@@ -7,9 +7,6 @@ services:
       dockerfile: Dockerfile-dev
     restart: always
     environment:
-      STORE_URL: $ID_STORE_URL
-      STORE_PASSWORD: $ID_STORE_PASSWORD
-      STORE_DATABASE: $ID_STORE_DATABASE
       SERVICE_PORT: $ID_SERVICE_PORT
     volumes:
       - ./overture-id-service/src:/opt/app

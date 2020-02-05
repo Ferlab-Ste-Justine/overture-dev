@@ -79,6 +79,10 @@ services:
       SONG_SECURITY_ENABLED: "false"
       SCORE_URL: http://storage-server:8080
       SCORE_ACCESSTOKEN: ad83ebde-a55c-11e7-abc4-cec278b6b50a
+      ID_IDURL: $ID_SERVICE_URL
+      ID_FEDERATED_URITEMPLATE_DONOR: "${ID_SERVICE_URL}/patient/id?submittedProjectId={studyId}&submittedPatientId={submitterId}"
+      ID_FEDERATED_URITEMPLATE_SPECIMEN: "${ID_SERVICE_URL}/specimen/id?submittedProjectId={studyId}&submittedSpecimenId={submitterId}"
+      ID_FEDERATED_URITEMPLATE_SAMPLE: "${ID_SERVICE_URL}/sample/id?submittedProjectId={studyId}&submittedSampleId={submitterId}"
     env_file:
       - song_server.env
     restart: always
@@ -102,6 +106,7 @@ services:
     environment:
       SCORE_URL: $SCORE_PROXY
       SCORE_ACCESSTOKEN: ad83ebde-a55c-11e7-abc4-cec278b6b50a
+      ID_IDURL: $ID_SERVICE_URL
     env_file:
       - song_server.env
     depends_on:
