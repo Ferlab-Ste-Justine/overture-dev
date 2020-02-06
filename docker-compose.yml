@@ -20,48 +20,12 @@ services:
       POSTGRES_PASSWORD: password
     networks:
       - overture
-  id-db:
-    build: ./docker-demo/id-db
-    environment:
-      PGPORT: 8088
-      POSTGRES_DB: dcc_identifier
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-    depends_on:
-      - base-db
-    volumes:
-      - "id-db-data:/var/lib/postgresql/data/pgdata"
-    networks:
-      - overture
   auth:
     build: ./docker-demo/auth
     environment:
       AUTH_PORT: 8084
     volumes:
       - "auth-data:/opt/dcc/auth_data"
-    networks:
-      - overture
-  id:
-    build: ./docker-demo/id
-    environment:
-      ID_PORT: 8086
-      ID_JMX_PORT: 10017
-      ID_MANAGEMENT_PORT: 8089
-      POSTGRES_HOST: id-db
-      POSTGRES_PORT: 8088
-      POSTGRES_DB: dcc_identifier
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      AUTH_SERVER_URL: http://auth:8084/check_token/
-      AUTH_SERVER_CLIENTID:  3kJhz9pNtC0pFHAxr2SPkUkGjXrkWWqGcnPC0vBP
-      AUTH_SERVER_CLIENTSECRET: v9mjRtuEVwpt7cgqnsq6mxtCa5FbUOpKLGh7WX8a1dWbBKfrM3iV3VYMtE60jr3W7GLWtNeYIaJ8EUxPkaInclWVXf64qKdR3IKwyfpDU7JhvWEwIYQYdwV1YAUZjB2e
-    depends_on:
-      - base-ubuntu
-      - id-db
-      - auth
-    volumes:
-      - "./docker-demo/logs/id_logs:/opt/dcc/id_logs"
-      - "./docker-demo/tools:/opt/dcc/tools"
     networks:
       - overture
   song:
@@ -88,7 +52,6 @@ services:
     restart: always
     depends_on:
       - song-db 
-      - id
       - auth
     volumes:
       - "./docker-demo/logs/server_logs:/opt/dcc/server_logs"
@@ -111,7 +74,6 @@ services:
       - song_server.env
     depends_on:
       - song-db 
-      - id
       - auth
     stdin_open: true
     tty: true
@@ -235,7 +197,6 @@ services:
 
 volumes:
   db-data: {}
-  id-db-data: {}
   auth-data: {}
   overture_manifests:
     external: true
