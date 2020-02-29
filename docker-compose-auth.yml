@@ -1,7 +1,6 @@
-version: '3.3'
+version: '3.5'
 
 services:
-
   postgres:
     image: postgres
     restart: always
@@ -72,3 +71,4 @@ services:
 
 networks:
   overture:
+    name: overture

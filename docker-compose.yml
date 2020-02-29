@@ -1,4 +1,5 @@
-version: '3.4'
+version: '3.5'
+
 services:
   base-ubuntu:
     image: overture/local-base-ubuntu:latest
@@ -203,5 +204,4 @@ volumes:
 
 networks:
   overture:
-  proxy:
-    external: true
+    name: overture
