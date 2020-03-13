@@ -2,7 +2,7 @@
     "name": "test",
     "description": "test",
     "organization": "test",
-    "studyId": "ABC123",
+    "studyId": "ET00011",
     "info": {
         "array": true,
         "bigDecimal": true,

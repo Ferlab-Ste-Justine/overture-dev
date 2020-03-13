@@ -1,18 +1,18 @@
 {
-    "studyId": "ABC123", 
+    "studyId": "ET00011", 
     "samples": [
         {
             "info": {"randomSample1Field": "someSample1Value"}, 
             "sampleId": null, 
             "specimenId": null, 
-            "submitterSampleId": "ssId1", 
+            "submitterSampleId": "DNA054285", 
             "matchedNormalSubmitterSampleId": "sample-x24-11a", 
             "sampleType": "Total RNA", 
             "specimen": {
                 "info": {"randomSpecimenField": "someSpecimenValue"}, 
                 "specimenId": null, 
                 "donorId": null, 
-                "submitterSpecimenId": "sp_sub_1", 
+                "submitterSpecimenId": "DNA154285", 
                 "specimenType": "Primary tumour",
                 "specimenTissueSource": "Solid tissue",
                 "tumourNormalDesignation": "Tumour"
@@ -20,8 +20,8 @@
             "donor": {
                 "info": {"randomDonorField": "someDonorValue"}, 
                 "donorId": null, 
-                "submitterDonorId": "dsId1", 
-                "studyId": "ABC123", 
+                "submitterDonorId": "PA00027", 
+                "studyId": "ET00011", 
                 "gender": "Male"
             }
         }
@@ -32,7 +32,7 @@
             "objectId": null, 
             "analysisId": null, 
             "fileName": "example.bam", 
-            "studyId": "ABC123", 
+            "studyId": "ET00011", 
             "fileSize": 1234561, 
             "fileType": "BAM", 
             "fileMd5sum": "73a90acaae2b1ccc0e969709665bc62f", 
@@ -44,7 +44,7 @@
             "objectId": null, 
             "analysisId": null, 
             "fileName": "example.bam.bai", 
-            "studyId": "ABC123", 
+            "studyId": "ET00011", 
             "fileSize": 1234562, 
             "fileType": "BAI", 
             "fileMd5sum": "67a97437c474cc1d95e0a1672b291b70", 

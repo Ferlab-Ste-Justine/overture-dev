@@ -1,12 +1,12 @@
 SONG_SERVER_URL="http://localhost:8888"
-SONG_STUDY_ID="ABC123"
+SONG_STUDY_ID="ET00011"
 
 KEYCLOAK_URL="https://localhost:8443"
-KEYCLOAK_SECRET="d4372dd4-d8e0-4ca1-afb4-90fd6bd9eb6a"
+KEYCLOAK_SECRET="01729864-1f9f-4d16-b728-2fa87767541c"
 KEYCLOAK_USERNAME="test"
 KEYCLOAK_PASSWORD="testpassword99"
 
-REVERSE_PROXY_ACCESS_TOKEN="TO DEFINE"
+REVERSE_PROXY_ACCESS_TOKEN="Place token here"
 
 login:
 	@curl -vvv -k \
@@ -37,4 +37,14 @@ default_analysis:
 	-H "accept: */*" \
 	-X POST \
 	-d "@test_analysis" \
+	"$(SONG_SERVER_URL)/submit/$(SONG_STUDY_ID)"
+
+troubleshoot_analysis:
+	@curl \
+	-vvv \
+	-H "Authorization: Bearer $(REVERSE_PROXY_ACCESS_TOKEN)" \
+	-H "Content-Type: application/json" \
+	-H "accept: */*" \
+	-X POST \
+	-d "@tbs_analysis" \
 	"$(SONG_SERVER_URL)/submit/$(SONG_STUDY_ID)"

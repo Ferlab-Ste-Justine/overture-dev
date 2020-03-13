@@ -1,0 +1,77 @@
+{
+   "studyId":"ET00011",
+   "files":[
+      {
+         "dataType":"ReadAlignment",
+         "studyId":"ET00011",
+         "fileType":"CRAM",
+         "fileMd5sum":"87f70ccd1787f6d704477ac926160b97",
+         "fileName":"file1.cram",
+         "fileSize":30,
+         "fileAccess":"controlled"
+      },
+      {
+         "dataType":"ReadAlignmentIndex",
+         "studyId":"ET00011",
+         "fileType":"CRAI",
+         "fileMd5sum":"0f73a01c56a0107effe15a91eb99aa6f",
+         "fileName":"file2.crai",
+         "fileSize":38,
+         "fileAccess":"controlled"
+      },
+      {
+         "dataType":"coverageReport",
+         "studyId":"ET00011",
+         "fileType":"TSV",
+         "fileMd5sum":"aa6eea0fd4538431e859c0c666f8c6aa",
+         "fileName":"file3.tsv",
+         "fileSize":11,
+         "fileAccess":"controlled"
+      }
+   ],
+   "analysisType":{
+      "version":1,
+      "name":"clinReadAlignment"
+   },
+   "samples":[
+      {
+         "sampleType":"ADN",
+         "specimen":{
+            "submitterSpecimenId":"DNA154265",
+            "specimenType":"Blood specimen",
+            "specimenTissueSource":"Blood derived",
+            "tumourNormalDesignation":"Normal",
+            "donorId":null,
+            "specimenId":null
+         },
+         "submitterSampleId":"DNA054265",
+         "donor":{
+            "studyId":"ET00011",
+            "submitterDonorId":"PA00002",
+            "gender":"Male",
+            "donorId":null
+         },
+         "sampleId":null,
+         "specimenId":null
+      }
+   ],
+   "experiment":{
+      "readDuplicates":1881771,
+      "referenceGenome":"GRCh38 / hg38",
+      "pairedEnd":true,
+      "totalReadsCount":38838889393,
+      "readSupplementary":282771,
+      "readMapped":3093943094,
+      "libraryStrategy":"WXS",
+      "insertSize":150,
+      "libraryType":"Roche MedExome V3",
+      "runDate":"2020-05-14",
+      "readProperlyPaired":39898989,
+      "aligned":true,
+      "sequencingStrategy":"Miseq PE 2X150",
+      "sequencingId":"lsjii222jj2j2",
+      "alignmentTool":"Dragen v1.0",
+      "runId":"393777373",
+      "libraryName":"a library name"
+   }
+}
