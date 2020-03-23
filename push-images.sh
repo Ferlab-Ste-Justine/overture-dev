@@ -8,5 +8,8 @@ docker push chusj/overture-score:$VERSION;
 docker tag overture-dev_song:latest chusj/overture-song:$VERSION;
 docker push chusj/overture-song:$VERSION;
 
-docker tag overture-dev_storage-client:latest chujs/score-client:$VERSION;
+docker tag overture-dev_storage-client:latest chusj/score-client:$VERSION;
 docker push chujs/score-client:$VERSION;
+
+(cd song-auth; ./push_image.sh);
+(cd score-auth; ./push_image.sh);
