@@ -35,16 +35,17 @@
    },
    "samples":[
       {
-         "sampleType":"ADN",
+         "sampleType":"Deoxyribonucleic acid",
          "specimen":{
             "submitterSpecimenId":"DNA154265",
-            "specimenType":"Blood specimen",
-            "specimenTissueSource":"Blood derived",
+            "specimenType":"Normal",
+            "specimenTissueSource":"Blood specimen",
             "tumourNormalDesignation":"Normal",
             "donorId":null,
             "specimenId":null
          },
          "submitterSampleId":"DNA054265",
+         "matchedNormalSubmitterSampleId": null,
          "donor":{
             "studyId":"ET00011",
             "submitterDonorId":"PA00002",
