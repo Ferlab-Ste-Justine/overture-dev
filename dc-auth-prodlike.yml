@@ -1,0 +1,62 @@
+version: '3.5'
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: "keycloak"
+      POSTGRES_PASSWORD: ${KEYCLOAK_DB_PASSWORD}
+      POSTGRES_DB: "keycloak"
+    volumes:
+      - ./keycloak/postgres:/var/lib/postgresql/data
+    expose:
+      - "5432"
+    networks:
+      - overture
+
+  keycloak:
+    image: jboss/keycloak:4.8.3.Final
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - 8443:8443
+    volumes:
+      - ./keycloak/realm-export.json:/tmp/realm-export.json
+    environment:
+      KEYCLOAK_USER: "admin"
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+      DB_VENDOR: "postgres"
+      DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD}
+      JDBC_PARAMS: "connectTimeout=30"
+      DB_ADDR: "postgres"
+      KEYCLOAK_IMPORT: /tmp/realm-export.json
+    networks:
+      - overture
+
+  song-reverse-proxy:
+    image: chusj/song-auth-reverse-proxy:0.4.0
+    restart: always
+    environment:
+      JWT_SECRET: $JWT_SECRET
+      SONG_SERVICE: $SONG_SERVICE
+      SERVICE_PORT: $PROXY_SERVICE_PORT
+      ADMIN_ROLE: $ADMIN_ROLE
+    networks:
+      - overture
+
+  score-reverse-proxy:
+    image: chusj/score-auth-reverse-proxy:0.1.0
+    restart: always
+    environment:
+      JWT_SECRET: $JWT_SECRET
+      SCORE_SERVICE: $SCORE_SERVICE
+      SERVICE_PORT: $PROXY_SERVICE_PORT
+      ADMIN_ROLE: $ADMIN_ROLE
+    networks:
+      - overture
+
+networks:
+  overture:
+    name: overture

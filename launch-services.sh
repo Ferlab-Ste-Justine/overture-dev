@@ -1,11 +1,23 @@
+if [ -z "$ENV" ]; then
+    export ENV=dev;
+fi
+
+if [ "$ENV" = "dev" ]; then
+    export DOCKER_COMPOSE_FILE="docker-compose.yml";
+    export DOCKER_COMPOSE_AUTH_FILE="docker-compose-auth.yml";
+else
+    export DOCKER_COMPOSE_FILE="dc-prodlike.yml";
+    export DOCKER_COMPOSE_AUTH_FILE="dc-auth-prodlike.yml";
+fi
+
 #Setup shared manifest volume to sync shared files between the SONG and Score clients
 OVERTURE_MANIFEST=$(docker volume ls | grep overture_manifests)
 if [ -z "$OVERTURE_MANIFEST" ]; then
     docker volume create overture_manifests;
 fi
 
-docker-compose up -d
-docker-compose -f docker-compose-auth.yml up -d
+docker-compose -f $DOCKER_COMPOSE_FILE up -d
+docker-compose -f $DOCKER_COMPOSE_AUTH_FILE up -d
 
 #Setup the Minio bucket that Score depends on
 export OBJECT_STORAGE_ACCESS_KEY=$(cat .env | grep OBJECT_STORAGE_ACCESS_KEY | cut -d '=' -f 2)
