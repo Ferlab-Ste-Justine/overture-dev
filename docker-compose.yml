@@ -1,17 +1,6 @@
 version: '3.5'
 
 services:
-  base-ubuntu:
-    image: overture/local-base-ubuntu:latest
-    build: ./docker-demo/base-ubuntu
-    networks:
-      - overture
-  base-db:
-    image: overture/local-base-db:latest
-    build: ./docker-demo/base-db
-    command: echo "do nothing"
-    networks:
-      - overture
   song-db:
     image: "postgres:9.6"
     environment:
@@ -19,14 +8,6 @@ services:
       POSTGRES_DB: song
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-    networks:
-      - overture
-  auth:
-    build: ./docker-demo/auth
-    environment:
-      AUTH_PORT: 8084
-    volumes:
-      - "auth-data:/opt/dcc/auth_data"
     networks:
       - overture
   song:
@@ -53,63 +34,18 @@ services:
     restart: always
     depends_on:
       - song-db 
-      - auth
     volumes:
-      - "./docker-demo/logs/server_logs:/opt/dcc/server_logs"
-      - "./docker-demo/tools:/opt/dcc/tools"
+      - "./logs/server_logs:/opt/dcc/server_logs"
     networks:
       overture:
         aliases:
           - song
-  song-maven:
-    image: maven:3.5-jdk-11-slim
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./SONG:/opt
-    working_dir: /opt
-    environment:
-      SCORE_URL: $SCORE_PROXY
-      SCORE_ACCESSTOKEN: ad83ebde-a55c-11e7-abc4-cec278b6b50a
-      ID_IDURL: $ID_SERVICE_URL
-    env_file:
-      - song_server.env
-    depends_on:
-      - song-db 
-      - auth
-    stdin_open: true
-    tty: true
-    command: ["bash"]
-    entrypoint: [""]
-    networks:
-      - overture
-  song-client:
-    build:
-      context: ./SONG
-      dockerfile: Dockerfile
-      target: client
-    environment:
-      CLIENT_ACCESS_TOKEN: ad83ebde-a55c-11e7-abc4-cec278b6b50a
-      CLIENT_SERVER_URL: http://song:8080
-      CLIENT_STUDY_ID: ABC123
-      CLIENT_DEBUG_ENABLED: "false"
-    depends_on:
-      - base-ubuntu
-      - song
-    volumes:
-      - "./docker-demo/data/client:/opt/dcc/data"
-      - "./docker-demo/tools:/opt/dcc/tools"
-    stdin_open: true
-    tty: true
-    command: ["bash"]
-    entrypoint: [""]
-    networks:
-      - overture
   object-storage:
     image: minio/minio:RELEASE.2018-05-11T00-29-24Z
     ports:
       - "8085:8085"
     volumes:
-      - "./docker-demo/data/minio:/opt/dcc/data"
+      - "./data/minio:/opt/dcc/data"
     environment:
       MINIO_ACCESS_KEY: $OBJECT_STORAGE_ACCESS_KEY
       MINIO_SECRET_KEY: $OBJECT_STORAGE_SECRET_KEY
@@ -170,29 +106,8 @@ services:
     depends_on:
       - object-storage
       - song
-      - auth
     volumes:
-      - "./docker/scratch/storage-server-logs:/opt/dcc/storage_server_logs"
-    networks:
-      - overture
-  storage-client:
-    stdin_open: true
-    tty: true
-    entrypoint: [""]
-    command: ["sh"]
-    build:
-      context: ./score
-      dockerfile: Dockerfile
-      target: client
-    environment:
-      AUTH_TOKEN: ad83ebde-a55c-11e7-abc4-cec278b6b50a
-      METADATA_URL: $SONG_SERVICE
-      STORAGE_URL: $SCORE_PROXY
-    depends_on:
-      - storage-server
-      - song
-    volumes:
-      - "overture_manifests:/opt/overture-manifests"
+      - "./logs/storage-server-logs:/opt/dcc/storage_server_logs"
     networks:
       - overture
 
