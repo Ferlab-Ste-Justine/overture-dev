@@ -110,6 +110,14 @@ services:
       - "./logs/storage-server-logs:/opt/dcc/storage_server_logs"
     networks:
       - overture
+  auth:
+    build: ./auth-throwaway-dependency
+    environment:
+      AUTH_PORT: 8084
+    volumes:
+      - "auth-data:/opt/dcc/auth_data"
+    networks:
+      - overture
 
 volumes:
   db-data: {}

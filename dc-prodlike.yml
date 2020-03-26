@@ -99,6 +99,14 @@ services:
       - "./logs/storage-server-logs:/opt/dcc/storage_server_logs"
     networks:
       - overture
+  auth:
+    image: chusj/redundant-song-auth-dependency:0.3
+    environment:
+      AUTH_PORT: 8084
+    volumes:
+      - "auth-data:/opt/dcc/auth_data"
+    networks:
+      - overture
 
 volumes:
   db-data: {}
