@@ -70,7 +70,7 @@ services:
       SERVER_URL: $SONG_SERVICE
       METADATA_URL: $SONG_SERVICE
       SERVER_SSL_ENABLED: "false"
-      AUTH_SERVER_URL: http://auth:8084/check_token/
+      AUTH_SERVER_URL: http://legacy-auth:8084/check_token/
       AUTH_SERVER_CLIENTID:  3kJhz9pNtC0pFHAxr2SPkUkGjXrkWWqGcnPC0vBP
       AUTH_SERVER_CLIENTSECRET: v9mjRtuEVwpt7cgqnsq6mxtCa5FbUOpKLGh7WX8a1dWbBKfrM3iV3VYMtE60jr3W7GLWtNeYIaJ8EUxPkaInclWVXf64qKdR3IKwyfpDU7JhvWEwIYQYdwV1YAUZjB2e
       AUTH_SERVER_UPLOADSCOPE: score.WRITE
@@ -110,7 +110,7 @@ services:
       - "./logs/storage-server-logs:/opt/dcc/storage_server_logs"
     networks:
       - overture
-  auth:
+  legacy-auth:
     build: ./auth-throwaway-dependency
     environment:
       AUTH_PORT: 8084
