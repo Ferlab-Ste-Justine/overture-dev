@@ -1,6 +1,15 @@
-if [ -z "$ENV" ]; then
-    export ENV=dev;
+SWARM=$(docker node ls -q 2>&1 >/dev/null)
+if [[ $SWARM = Error* ]]; then
+    echo "Docker must be running in swarm mode to execute this script";
+    exit 1;
 fi
+
+OVERTURE_NETWORK_EXISTS=$(docker network ls | grep overture)
+if [ -z "$OVERTURE_NETWORK_EXISTS" ]; then
+    docker network create -d overlay --attachable overture;
+fi
+
+export ENV=${ENV:-dev}
 
 if [ "$ENV" = "dev" ]; then
     export DOCKER_COMPOSE_FILE="docker-compose.yml";
@@ -10,14 +19,7 @@ else
     export DOCKER_COMPOSE_AUTH_FILE="dc-auth-prodlike.yml";
 fi
 
-#Setup shared manifest volume to sync shared files between the SONG and Score clients
-OVERTURE_MANIFEST=$(docker volume ls | grep overture_manifests)
-if [ -z "$OVERTURE_MANIFEST" ]; then
-    docker volume create overture_manifests;
-fi
-
-docker-compose -f $DOCKER_COMPOSE_FILE up -d
-docker-compose -f $DOCKER_COMPOSE_AUTH_FILE up -d
+docker stack deploy -c $DOCKER_COMPOSE_FILE -c $DOCKER_COMPOSE_AUTH_FILE overture-core
 
 #Setup the Minio bucket that Score depends on
 export OBJECT_STORAGE_ACCESS_KEY=$(cat .env | grep OBJECT_STORAGE_ACCESS_KEY | cut -d '=' -f 2)

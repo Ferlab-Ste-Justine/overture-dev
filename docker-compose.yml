@@ -3,6 +3,9 @@ version: '3.5'
 services:
   song-db:
     image: "postgres:9.6"
+    deploy:
+      mode: replicated
+      replicas: 1
     environment:
       PGPORT: 8082
       POSTGRES_DB: song
@@ -15,6 +18,9 @@ services:
       context: ./SONG
       dockerfile: Dockerfile
       target: server
+    deploy:
+      mode: replicated
+      replicas: 1
     ports:
       - "8080:8080"
     environment:
@@ -37,11 +43,14 @@ services:
     volumes:
       - "./logs/server_logs:/opt/dcc/server_logs"
     networks:
-      overture:
-        aliases:
-          - song
+      - overture:
+          aliases:
+            - song
   object-storage:
     image: minio/minio:RELEASE.2018-05-11T00-29-24Z
+    deploy:
+      mode: replicated
+      replicas: 1
     ports:
       - "8085:8085"
     volumes:
@@ -63,6 +72,9 @@ services:
       context: ./score
       dockerfile: Dockerfile
       target: server
+    deploy:
+      mode: replicated
+      replicas: 1
     environment:
       METADATA_USELEGACYMODE: "false"
       SCORE_SECURITY_ENABLED: "false"
@@ -112,19 +124,20 @@ services:
       - overture
   legacy-auth:
     build: ./auth-throwaway-dependency
+    deploy:
+      mode: replicated
+      replicas: 1
     environment:
       AUTH_PORT: 8084
     volumes:
-      - "auth-data:/opt/dcc/auth_data"
+      - "legacy-auth-data:/opt/dcc/auth_data"
     networks:
       - overture
 
 volumes:
   db-data: {}
-  auth-data: {}
-  overture_manifests:
-    external: true
+  legacy-auth-data: {}
 
 networks:
   overture:
-    name: overture
+    external: true
