@@ -2,9 +2,7 @@ version: '3.5'
 
 services:
   song-reverse-proxy:
-    build:
-      context: ./song-auth/src
-      dockerfile: Dockerfile-dev
+    image: chusj/song-auth-reverse-proxy:dev
     deploy:
       mode: replicated
       replicas: 1
@@ -22,9 +20,7 @@ services:
       - overture
 
   score-reverse-proxy:
-    build:
-      context: ./score-auth/src
-      dockerfile: Dockerfile-dev
+    image: chusj/score-auth-reverse-proxy:dev
     deploy:
       mode: replicated
       replicas: 1

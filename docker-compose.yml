@@ -10,14 +10,11 @@ services:
       PGPORT: 8082
       POSTGRES_DB: song
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: $SONG_DB_PASSWORD
     networks:
       - overture
   song:
-    build:
-      context: ./SONG
-      dockerfile: Dockerfile
-      target: server
+    image: chusj/overture-song:dev
     deploy:
       mode: replicated
       replicas: 1
@@ -26,7 +23,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: "default,local"
       SPRING_DATASOURCE_USERNAME: "postgres"
-      SPRING_DATASOURCE_PASSWORD: "password"
+      SPRING_DATASOURCE_PASSWORD: $SONG_DB_PASSWORD
       SPRING_DATASOURCE_URL: "jdbc:postgresql://song-db:8082/song?stringtype=unspecified"
       SONG_SECURITY_ENABLED: "false"
       SCORE_URL: http://storage-server:8080
@@ -43,9 +40,9 @@ services:
     volumes:
       - "./logs/server_logs:/opt/dcc/server_logs"
     networks:
-      - overture:
-          aliases:
-            - song
+      overture:
+        aliases:
+          - song
   object-storage:
     image: minio/minio:RELEASE.2018-05-11T00-29-24Z
     deploy:
@@ -68,10 +65,7 @@ services:
     networks:
       - overture
   storage-server:
-    build:
-      context: ./score
-      dockerfile: Dockerfile
-      target: server
+    image: chusj/overture-score:dev
     deploy:
       mode: replicated
       replicas: 1
@@ -123,7 +117,7 @@ services:
     networks:
       - overture
   legacy-auth:
-    build: ./auth-throwaway-dependency
+    image: chusj/redundant-song-auth-dependency:dev
     deploy:
       mode: replicated
       replicas: 1

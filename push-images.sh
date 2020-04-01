@@ -1,6 +1,9 @@
 export VERSION=0.3
 
-docker-compose build --no-cache;
+docker build --no-cache -t chusj/overture-song:$VERSION --target server SONG;
+docker build --no-cache -t chusj/overture-score:$VERSION --target server score;
+docker build --no-cache -t chusj/score-client:$VERSION --target client score;
+docker build --no-cache -t chusj/redundant-song-auth-dependency:$VERSION auth-throwaway-dependency;
 
 docker tag overture-dev_storage-server:latest chusj/overture-score:$VERSION;
 docker push chusj/overture-score:$VERSION;
