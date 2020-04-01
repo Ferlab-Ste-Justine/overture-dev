@@ -29,6 +29,22 @@ export ENV=prodlike
 
 Then, run the same commands as before to launch and tear down the services
 
+## Reloading Environment For Local Development
+
+The overture auth proxies have a development image that will automatically reload in dev mode with code changes and only need to be manually reloaded when contend in the package.json or the dockerfiles change.
+
+However, the SONG and Score overture service were written by a third party and we haven't adapted them yet to reload automatically so they will always have to be manually reloaded on code change.
+
+To reload manually, you basically have to take down the services, build the images and spin them back up by typing:
+
+```
+./teardown-services.sh
+./build-local-images.sh
+./launch-services.sh
+```
+
+Note that because images layer caching, only images that have actually changed will take time to rebuild. The others should be near-instantaneous to build.
+
 ## Pushing Images
 
 If you are part of the Chu team and need to build and push a new version of the images, run:
