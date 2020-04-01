@@ -35,11 +35,10 @@ The overture auth proxies have a development image that will automatically reloa
 
 However, the SONG and Score overture service were written by a third party and we haven't adapted them yet to reload automatically so they will always have to be manually reloaded on code change.
 
-To reload manually, you basically have to take down the services, build the images and spin them back up by typing:
+To reload manually, you basically have to take down the services and spin them back up (the launch script will build the images) by typing:
 
 ```
 ./teardown-services.sh
-./build-local-images.sh
 ./launch-services.sh
 ```
 
