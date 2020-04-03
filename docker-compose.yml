@@ -11,6 +11,8 @@ services:
       POSTGRES_DB: song
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: $SONG_DB_PASSWORD
+    volumes:
+      - ./data/song:/var/lib/postgresql/data
     networks:
       - overture
   song:
@@ -123,14 +125,11 @@ services:
       replicas: 1
     environment:
       AUTH_PORT: 8084
-    volumes:
-      - "legacy-auth-data:/opt/dcc/auth_data"
     networks:
       - overture
 
 volumes:
   db-data: {}
-  legacy-auth-data: {}
 
 networks:
   overture:

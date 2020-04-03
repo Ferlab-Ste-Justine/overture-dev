@@ -10,7 +10,9 @@ services:
       PGPORT: 8082
       POSTGRES_DB: song
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: $SONG_DB_PASSWORD
+    volumes:
+      - ./data/song:/var/lib/postgresql/data
     networks:
       - overture
   song:
@@ -21,7 +23,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: "default,local"
       SPRING_DATASOURCE_USERNAME: "postgres"
-      SPRING_DATASOURCE_PASSWORD: "password"
+      SPRING_DATASOURCE_PASSWORD: $SONG_DB_PASSWORD
       SPRING_DATASOURCE_URL: "jdbc:postgresql://song-db:8082/song?stringtype=unspecified"
       SONG_SECURITY_ENABLED: "false"
       SCORE_URL: http://storage-server:8080
@@ -118,14 +120,11 @@ services:
       replicas: 1
     environment:
       AUTH_PORT: 8084
-    volumes:
-      - "legacy-auth-data:/opt/dcc/auth_data"
     networks:
       - overture
 
 volumes:
   db-data: {}
-  legacy-auth-data: {}
 
 networks:
   overture:
