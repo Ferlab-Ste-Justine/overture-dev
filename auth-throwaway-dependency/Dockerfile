@@ -10,6 +10,8 @@ ADD init $AUTH_INIT
 RUN git clone https://github.com/andricDu/SimpleAuth $SIMPLE_AUTH_ROOT && \
 	pip3 install -r $SIMPLE_AUTH_ROOT/requirements.txt
 
+RUN mkdir -p /opt/dcc/auth_data
+
 CMD $AUTH_INIT/run.sh $AUTH_PORT
 
 
