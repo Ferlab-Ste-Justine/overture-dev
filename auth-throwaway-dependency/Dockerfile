@@ -14,4 +14,4 @@ RUN mkdir -p /opt/dcc/auth_data
 
 CMD $AUTH_INIT/run.sh $AUTH_PORT
 
-
+HEALTHCHECK --interval=10s --timeout=10s --start-period=30s --retries=3 CMD curl -f http://localhost:8084/admin/login/
