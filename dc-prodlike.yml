@@ -7,7 +7,7 @@ services:
       mode: replicated
       replicas: 1
       placement:
-        constraints: [node.labels.db_role == devops]
+        constraints: [node.labels.db_role == postgresql]
     environment:
       PGPORT: 8082
       POSTGRES_DB: song
@@ -51,7 +51,7 @@ services:
       mode: replicated
       replicas: 1
       placement:
-        constraints: [node.labels.db_role == devops]
+        constraints: [node.labels.db_role == postgresql]
       restart_policy:
           delay: 10s
           max_attempts: 10
