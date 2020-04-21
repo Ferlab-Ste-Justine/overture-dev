@@ -38,9 +38,7 @@ services:
       - song_server.env
     restart: always
     depends_on:
-      - song-db 
-    volumes:
-      - "./logs/server_logs:/opt/dcc/server_logs"
+      - song-db
     networks:
       overture:
         aliases:
@@ -112,8 +110,6 @@ services:
     depends_on:
       - object-storage
       - song
-    volumes:
-      - "./logs/storage-server-logs:/opt/dcc/storage_server_logs"
     networks:
       - overture
   legacy-auth:
