@@ -16,7 +16,7 @@ services:
     networks:
       - overture
   song:
-    image: chusj/overture-song:0.3
+    image: chusj/overture-song:0.4
     deploy:
       mode: replicated
       replicas: 1
@@ -65,7 +65,7 @@ services:
     networks:
       - overture
   storage-server:
-    image: chusj/overture-score:0.3
+    image: chusj/overture-score:0.4
     deploy:
       mode: replicated
       replicas: 1
@@ -114,7 +114,7 @@ services:
     networks:
       - overture
   legacy-auth:
-    image: chusj/redundant-song-auth-dependency:0.3
+    image: chusj/redundant-song-auth-dependency:0.4
     deploy:
       mode: replicated
       replicas: 1
