@@ -6,8 +6,8 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-    placement:
-      constraints: [node.labels.db_role == devops]
+      placement:
+        constraints: [node.labels.db_role == devops]
     environment:
       PGPORT: 8082
       POSTGRES_DB: song
@@ -50,8 +50,12 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-    placement:
-      constraints: [node.labels.db_role == devops]
+      placement:
+        constraints: [node.labels.db_role == devops]
+      restart_policy:
+          delay: 10s
+          max_attempts: 10
+          window: 60s
     ports:
       - "8085:8085"
     volumes:
@@ -60,11 +64,6 @@ services:
       MINIO_ACCESS_KEY: $OBJECT_STORAGE_ACCESS_KEY
       MINIO_SECRET_KEY: $OBJECT_STORAGE_SECRET_KEY
       MINIO_PORT: 8085
-    deploy:
-        restart_policy:
-            delay: 10s
-            max_attempts: 10
-            window: 60s
     command: server --address=0.0.0.0:8085 /opt/dcc/data
     networks:
       - overture
