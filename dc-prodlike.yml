@@ -6,6 +6,8 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+    placement:
+      constraints: [node.labels.db_role == postgresql]
     environment:
       PGPORT: 8082
       POSTGRES_DB: song
@@ -48,6 +50,8 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+    placement:
+      constraints: [node.labels.db_role == devops]
     ports:
       - "8085:8085"
     volumes:
@@ -117,7 +121,7 @@ services:
     image: chusj/redundant-song-auth-dependency:0.4
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 2
     environment:
       AUTH_PORT: 8084
     networks:
