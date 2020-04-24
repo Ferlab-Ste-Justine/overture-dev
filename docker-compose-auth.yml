@@ -14,6 +14,7 @@ services:
       SONG_SERVICE: $SONG_SERVICE
       SERVICE_PORT: $PROXY_SERVICE_PORT
       ADMIN_ROLE: $ADMIN_ROLE
+      SAMPLE_METADATA_SERVICE: $SAMPLE_METADATA_SERVICE
     volumes:
       - ./song-auth/src:/opt/app
     networks:
