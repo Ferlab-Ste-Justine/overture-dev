@@ -1,4 +1,4 @@
-SONG_SERVER_URL="http://localhost:8888"
+SONG_SERVER_URL="http://localhost:9090"
 SONG_STUDY_ID="ET00011"
 
 REVERSE_PROXY_ACCESS_TOKEN="Place token here"
