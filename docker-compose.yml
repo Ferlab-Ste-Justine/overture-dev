@@ -20,8 +20,6 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-    ports:
-      - "8080:8080"
     environment:
       SPRING_PROFILES_ACTIVE: "default,local"
       SPRING_DATASOURCE_USERNAME: "postgres"
@@ -50,8 +48,6 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-    ports:
-      - "8085:8085"
     volumes:
       - "./data/minio:/opt/dcc/data"
     environment:
@@ -108,9 +104,6 @@ services:
       ENDPOINTS_DUMP_ENABLED: "false"
       ENDPOINTS_ENV_ENABLED: "true"
       ENDPOINTS_INFO_ENABLED: "true"
-    ports:
-      - "8087:8080"
-      - "5006:5006"
     depends_on:
       - object-storage
       - song

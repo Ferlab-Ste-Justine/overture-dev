@@ -30,6 +30,24 @@ services:
     networks:
       - overture
 
+  external-proxy:
+    image: chusj/overture-external-reverse-proxy:0.1.0
+    deploy:
+      mode: replicated
+      replicas: 2
+    environment:
+      SONG_REVERSE_PROXY_HOST: song-reverse-proxy
+      SONG_REVERSE_PROXY_PORT: $PROXY_SERVICE_PORT
+      SCORE_REVERSE_PROXY_HOST: score-reverse-proxy
+      SCORE_REVERSE_PROXY_PORT: $PROXY_SERVICE_PORT
+      OBJECT_STORE_HOST: object-storage
+      OBJECT_STORE_PORT: 8085
+      SONG_API_PORT: $EXTERNAL_PROXY_SONG_PORT
+      SCORE_API_PORT: $EXTERNAL_PROXY_SCORE_PORT
+      OBJECT_STORE_API_PORT: $EXTERNAL_PROXY_OBJECT_STORE_PORT
+    networks:
+      - overture
+
 networks:
   overture:
     external: true

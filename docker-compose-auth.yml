@@ -8,7 +8,6 @@ services:
       replicas: 1
     ports:
       - 9090:$PROXY_SERVICE_PORT
-    restart: always
     environment:
       JWT_SECRET: $JWT_SECRET
       SONG_SERVICE: $SONG_SERVICE
@@ -27,7 +26,6 @@ services:
       replicas: 1
     ports:
       - 8989:$PROXY_SERVICE_PORT
-    restart: always
     environment:
       JWT_SECRET: $JWT_SECRET
       SCORE_SERVICE: $SCORE_SERVICE
@@ -37,6 +35,29 @@ services:
       - ./score-auth/src:/opt/app
     networks:
       - overture
+  
+  external-proxy:
+    image: chusj/overture-external-reverse-proxy:dev
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      SONG_REVERSE_PROXY_HOST: song-reverse-proxy
+      SONG_REVERSE_PROXY_PORT: $PROXY_SERVICE_PORT
+      SCORE_REVERSE_PROXY_HOST: score-reverse-proxy
+      SCORE_REVERSE_PROXY_PORT: $PROXY_SERVICE_PORT
+      OBJECT_STORE_HOST: object-storage
+      OBJECT_STORE_PORT: 8085
+      SONG_API_PORT: $EXTERNAL_PROXY_SONG_PORT
+      SCORE_API_PORT: $EXTERNAL_PROXY_SCORE_PORT
+      OBJECT_STORE_API_PORT: $EXTERNAL_PROXY_OBJECT_STORE_PORT
+    ports:
+      - $EXTERNAL_PROXY_SONG_PORT:$EXTERNAL_PROXY_SONG_PORT
+      - $EXTERNAL_PROXY_SCORE_PORT:$EXTERNAL_PROXY_SCORE_PORT
+      - $EXTERNAL_PROXY_OBJECT_STORE_PORT:$EXTERNAL_PROXY_OBJECT_STORE_PORT
+    networks:
+      - overture
+
 
 networks:
   overture:

@@ -54,8 +54,6 @@ services:
           delay: 10s
           max_attempts: 10
           window: 60s
-    ports:
-      - "8085:8085"
     volumes:
       - "./data/minio:/opt/dcc/data"
     environment:

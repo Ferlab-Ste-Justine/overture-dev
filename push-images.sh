@@ -12,5 +12,6 @@ docker push chusj/score-client:$VERSION;
 docker build --no-cache -t chusj/redundant-song-auth-dependency:$VERSION auth-throwaway-dependency;
 docker push chusj/redundant-song-auth-dependency:$VERSION;
 
+(cd external-reverse-proxy; ./push_image.sh)
 (cd song-auth; ./push_image.sh);
 (cd score-auth; ./push_image.sh);
