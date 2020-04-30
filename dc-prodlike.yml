@@ -54,12 +54,14 @@ services:
           delay: 10s
           max_attempts: 10
           window: 60s
+    ports:
+      - $OBJECT_STORE_PORT:$OBJECT_STORE_PORT
     volumes:
       - "./data/minio:/opt/dcc/data"
     environment:
       MINIO_ACCESS_KEY: $OBJECT_STORAGE_ACCESS_KEY
       MINIO_SECRET_KEY: $OBJECT_STORAGE_SECRET_KEY
-      MINIO_PORT: 8085
+      MINIO_PORT: $OBJECT_STORE_PORT
     command: server --address=0.0.0.0:8085 /opt/dcc/data
     networks:
       - overture
@@ -80,8 +82,8 @@ services:
       AUTH_SERVER_CLIENTSECRET: v9mjRtuEVwpt7cgqnsq6mxtCa5FbUOpKLGh7WX8a1dWbBKfrM3iV3VYMtE60jr3W7GLWtNeYIaJ8EUxPkaInclWVXf64qKdR3IKwyfpDU7JhvWEwIYQYdwV1YAUZjB2e
       AUTH_SERVER_UPLOADSCOPE: score.WRITE
       AUTH_SERVER_DOWNLOADSCOPE: score.READ
-      OBJECT_STORAGE_URL: http://object-storage:8085
-      S3_ENDPOINT: http://object-storage:8085
+      OBJECT_STORAGE_URL: $OBJECT_STORE
+      S3_ENDPOINT: $OBJECT_STORE
       OBJECT_STORAGE_ACCESS_KEY: $OBJECT_STORAGE_ACCESS_KEY
       S3_ACCESSKEY: $OBJECT_STORAGE_ACCESS_KEY
       OBJECT_STORAGE_SECRET_KEY: $OBJECT_STORAGE_SECRET_KEY
