@@ -36,7 +36,7 @@ services:
     networks:
       - overture
   
-  external-proxy:
+  external-reverse-proxy:
     image: chusj/overture-external-reverse-proxy:dev
     deploy:
       mode: replicated

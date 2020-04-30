@@ -29,6 +29,16 @@ export ENV=prodlike
 
 Then, run the same commands as before to launch and tear down the services
 
+## Interaction with the system
+
+SONG and Score are accessible via port **10000** and port **10001** of the machine the **external-proxy** runs on in addition to directly on the **external-proxy** service via the **overture** network.
+
+Those ports require authentication, are access-controlled and some routes deemed internal-only may be unavailable.
+
+Additionally, SONG and Score can be accessed internally without restrictions on the port **8888** of the **song-reverse-proxy** and **score-reverse-proxy** services on the **overture** network.
+
+Access via this mean should be dealt with extreme care as all access control considerations are delegated to the caller... You have a shotgun and you can shoot yourself in the foot so take care not to do so.
+
 ## Reloading Environment For Local Development
 
 The overture auth proxies have a development image that will automatically reload in dev mode with code changes and only need to be manually reloaded when contend in the package.json or the dockerfiles change.

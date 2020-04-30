@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   song-reverse-proxy:
-    image: chusj/song-auth-reverse-proxy:0.6.0
+    image: chusj/song-auth-reverse-proxy:0.7.0
     deploy:
       mode: replicated
       replicas: 2
@@ -17,7 +17,7 @@ services:
       - overture
 
   score-reverse-proxy:
-    image: chusj/score-auth-reverse-proxy:0.2.0
+    image: chusj/score-auth-reverse-proxy:0.3.0
     deploy:
       mode: replicated
       replicas: 2
@@ -30,7 +30,7 @@ services:
     networks:
       - overture
 
-  external-proxy:
+  external-reverse-proxy:
     image: chusj/overture-external-reverse-proxy:0.2.0
     deploy:
       mode: replicated
