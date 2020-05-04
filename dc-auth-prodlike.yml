@@ -30,7 +30,7 @@ services:
     networks:
       - overture
 
-  external-reverse-proxy:
+  overture-external-reverse-proxy:
     image: chusj/overture-external-reverse-proxy:0.2.0
     deploy:
       mode: replicated
@@ -42,12 +42,12 @@ services:
       SCORE_REVERSE_PROXY_PORT: $PROXY_SERVICE_PORT
       SONG_API_PORT: $EXTERNAL_PROXY_SONG_PORT
       SCORE_API_PORT: $EXTERNAL_PROXY_SCORE_PORT
-    ports:
-      - $EXTERNAL_PROXY_SONG_PORT:$EXTERNAL_PROXY_SONG_PORT
-      - $EXTERNAL_PROXY_SCORE_PORT:$EXTERNAL_PROXY_SCORE_PORT
     networks:
       - overture
+      - proxy
 
 networks:
   overture:
+    external: true
+  proxy:
     external: true
