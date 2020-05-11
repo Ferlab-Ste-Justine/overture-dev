@@ -17,7 +17,7 @@ services:
       - overture
 
   score-reverse-proxy:
-    image: chusj/score-auth-reverse-proxy:0.3.0
+    image: chusj/score-auth-reverse-proxy:0.4.0
     deploy:
       mode: replicated
       replicas: 2
