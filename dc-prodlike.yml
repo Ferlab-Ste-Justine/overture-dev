@@ -113,7 +113,7 @@ services:
     networks:
       - overture
   legacy-auth:
-    image: chusj/redundant-song-auth-dependency:0.4
+    image: chusj/redundant-song-auth-dependency:0.5
     deploy:
       mode: replicated
       replicas: 2
