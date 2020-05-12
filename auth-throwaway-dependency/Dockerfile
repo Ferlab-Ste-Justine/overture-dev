@@ -1,5 +1,6 @@
-FROM overture/local-base-ubuntu:latest
-MAINTAINER OVERTURE <contact@overture.bio>
+FROM ubuntu:18.04
+
+RUN apt-get update && apt-get install -y git python3-pip curl
 
 ENV AUTH_INIT $DCC_HOME/init
 ENV AUTH_DATA $DCC_HOME/auth_data
