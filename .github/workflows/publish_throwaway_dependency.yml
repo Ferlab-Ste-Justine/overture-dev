@@ -1,0 +1,19 @@
+name: Publish Throwaway Dependency
+
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - 'auth-throwaway-dependency/**'
+
+jobs:
+  publish:
+    name: Publish Image
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u chusj --password-stdin
+    - name: Publish the image
+      run: cd auth-throwaway-dependency && ./push_image.sh

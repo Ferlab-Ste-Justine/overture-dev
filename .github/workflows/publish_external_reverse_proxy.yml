@@ -1,0 +1,19 @@
+name: Publish External Reverse Proxy
+
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - 'external-reverse-proxy/**'
+
+jobs:
+  publish:
+    name: Publish Image
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into registry
+      run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u chusj --password-stdin
+    - name: Publish the image
+      run: cd external-reverse-proxy && ./push_image.sh

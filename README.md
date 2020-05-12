@@ -1,3 +1,9 @@
+![](https://github.com/cr-ste-justine/overture-dev/workflows/Build%20External%20Reverse%20Proxy/badge.svg)
+![](https://github.com/cr-ste-justine/overture-dev/workflows/Build%20Throwaway%20Dependency/badge.svg)
+![](https://github.com/cr-ste-justine/overture-dev/workflows/Publish%20External%20Reverse%20Proxy/badge.svg)
+![](https://github.com/cr-ste-justine/overture-dev/workflows/Publish%20Throwaway%20Dependency/badge.svg)
+
+
 # About
 
 This project contains the orchestration for the reusable core components of the Overture projects used at the Sainte-Justine Chu.

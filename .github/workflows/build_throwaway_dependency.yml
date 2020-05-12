@@ -1,0 +1,15 @@
+name: Build Throwaway Dependency
+
+on:
+  push:
+    paths:
+    - 'auth-throwaway-dependency/**'
+
+jobs:
+  publish:
+    name: Build Image
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the image
+      run: cd auth-throwaway-dependency && docker build -t test:test .

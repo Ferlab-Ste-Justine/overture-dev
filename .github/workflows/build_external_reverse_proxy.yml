@@ -1,0 +1,15 @@
+name: Build External Reverse Proxy
+
+on:
+  push:
+    paths:
+    - 'external-reverse-proxy/**'
+
+jobs:
+  publish:
+    name: Build Image
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the image
+      run: cd external-reverse-proxy && docker build -t test:test .
