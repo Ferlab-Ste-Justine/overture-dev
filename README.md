@@ -59,13 +59,3 @@ To reload manually, you basically have to take down the services and spin them b
 ```
 
 Note that because images layer caching, only images that have actually changed will take time to rebuild. The others should be near-instantaneous to build.
-
-## Pushing Images
-
-If you are part of the Chu team and need to build and push a new version of the images, run:
-
-```
-./push-images.sh
-```
-
-Note that you'll need to be logged in with an account that has permission to push to our repos on docker hub.
