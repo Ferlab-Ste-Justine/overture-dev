@@ -2,11 +2,17 @@ version: '3.5'
 
 services:
   song-reverse-proxy:
-    image: chusj/song-auth-reverse-proxy:0.7.0
+    image: chusj/song-auth-reverse-proxy:0.8.0
     deploy:
       mode: replicated
       replicas: 2
-    restart: always
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
     environment:
       JWT_SECRET: $JWT_SECRET
       SONG_SERVICE: $SONG_SERVICE
@@ -17,11 +23,17 @@ services:
       - overture
 
   score-reverse-proxy:
-    image: chusj/score-auth-reverse-proxy:0.4.0
+    image: chusj/score-auth-reverse-proxy:0.5.0
     deploy:
       mode: replicated
       replicas: 2
-    restart: always
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
     environment:
       JWT_SECRET: $JWT_SECRET
       SCORE_SERVICE: $SCORE_SERVICE
@@ -31,10 +43,17 @@ services:
       - overture
 
   overture-external-reverse-proxy:
-    image: chusj/overture-external-reverse-proxy:0.2.0
+    image: chusj/overture-external-reverse-proxy:0.3.0
     deploy:
       mode: replicated
       replicas: 2
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 256M
+        reservations:
+          cpus: '0.5'
+          memory: 128M
     environment:
       SONG_REVERSE_PROXY_HOST: song-reverse-proxy
       SONG_REVERSE_PROXY_PORT: $PROXY_SERVICE_PORT

@@ -1,4 +1,4 @@
-export VERSION=0.2.0
+export VERSION=0.3.0
 export IMAGE=chusj/overture-external-reverse-proxy:$VERSION
 docker build -t $IMAGE .;
 docker push $IMAGE;

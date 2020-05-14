@@ -6,6 +6,13 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
     ports:
       - 9090:$PROXY_SERVICE_PORT
     environment:
@@ -24,6 +31,13 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
     ports:
       - 8989:$PROXY_SERVICE_PORT
     environment:
@@ -41,6 +55,13 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 256M
+        reservations:
+          cpus: '0.5'
+          memory: 128M
     environment:
       SONG_REVERSE_PROXY_HOST: song-reverse-proxy
       SONG_REVERSE_PROXY_PORT: $PROXY_SERVICE_PORT
