@@ -48,6 +48,13 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      resources:
+        limits:
+          cpus: '2.00'
+          memory: 2048M
+        reservations:
+          cpus: '1.00'
+          memory: 1024M
     ports:
       - $OBJECT_STORE_PORT:$OBJECT_STORE_PORT
     volumes:
@@ -118,6 +125,13 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 128M
+        reservations:
+          cpus: '0.25'
+          memory: 64M
     environment:
       AUTH_PORT: 8084
     networks:
