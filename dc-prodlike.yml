@@ -6,6 +6,13 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      resources:
+        limits:
+          cpus: '2.00'
+          memory: 2048M
+        reservations:
+          cpus: '1.00'
+          memory: 1024M
       placement:
         constraints: [node.labels.db_role == postgresql]
     environment:
@@ -13,6 +20,9 @@ services:
       POSTGRES_DB: song
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: $SONG_DB_PASSWORD
+    #https://www.postgresql.org/docs/12/runtime-config-resource.html
+    #Max RAM = 256 + 200*4 + 8*64 = 1568 ~ 2048 (2GB)
+    command: -c 'shared_buffers=256MB' -c 'work_mem=4MB' -c 'maintenance_work_mem=64MB' -c 'max_worker_processes=8' -c 'max_connections=200'
     volumes:
       - ./data/song:/var/lib/postgresql/data
     networks:
