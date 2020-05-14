@@ -58,10 +58,10 @@ services:
       resources:
         limits:
           cpus: '1.00'
-          memory: 256M
+          memory: 128M
         reservations:
           cpus: '0.5'
-          memory: 128M
+          memory: 64M
     environment:
       SONG_REVERSE_PROXY_HOST: song-reverse-proxy
       SONG_REVERSE_PROXY_PORT: $PROXY_SERVICE_PORT
