@@ -6,6 +6,10 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      placement:
+        constraints:
+        - node.labels.app_role == generic
+        - node.labels.state_anchor == true
       resources:
         limits:
           cpus: '2.00'
@@ -13,8 +17,6 @@ services:
         reservations:
           cpus: '1.00'
           memory: 1024M
-      placement:
-        constraints: [node.labels.db_role == postgresql]
     environment:
       PGPORT: 8082
       POSTGRES_DB: song
@@ -32,6 +34,9 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      placement:
+        constraints:
+        - node.labels.app_role == generic
       resources:
         limits:
           cpus: '2.00'
@@ -66,7 +71,9 @@ services:
       mode: replicated
       replicas: 1
       placement:
-        constraints: [node.labels.db_role == postgresql]
+        constraints:
+        - node.labels.app_role == generic
+        - node.labels.state_anchor == true
       restart_policy:
           delay: 10s
           max_attempts: 10
@@ -94,6 +101,9 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      placement:
+        constraints:
+        - node.labels.app_role == generic
       resources:
         limits:
           cpus: '2.00'
@@ -148,6 +158,9 @@ services:
     deploy:
       mode: replicated
       replicas: 2
+      placement:
+        constraints:
+        - node.labels.app_role == generic
       resources:
         limits:
           cpus: '0.5'
