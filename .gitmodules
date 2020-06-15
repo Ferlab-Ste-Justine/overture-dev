@@ -1,12 +1,12 @@
 [submodule "SONG"]
 	path = SONG
-	url = https://github.com/cr-ste-justine/SONG.git
+	url = https://github.com/Ferlab-Ste-Justine/SONG.git
 [submodule "score"]
 	path = score
-	url = https://github.com/cr-ste-justine/score.git
+	url = https://github.com/Ferlab-Ste-Justine/score.git
 [submodule "song-auth"]
 	path = song-auth
-	url = https://github.com/cr-ste-justine/song-auth.git
+	url = https://github.com/Ferlab-Ste-Justine/song-auth.git
 [submodule "score-auth"]
 	path = score-auth
-	url = https://github.com/cr-ste-justine/score-auth.git
+	url = https://github.com/Ferlab-Ste-Justine/score-auth.git
